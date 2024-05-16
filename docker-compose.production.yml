@@ -14,7 +14,7 @@ services:
     image: ranly1145/kittygram_backend
     env_file: .env
     volumes:
-      - static_volume:/static
+      - static_volume:/backend_static
     depends_on:
       - db
   frontend:
