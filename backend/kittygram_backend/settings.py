@@ -12,7 +12,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['84.201.142.34', '127.0.0.1', 'localhost', 'kittygramcatsranly.zapto.org']
+ALLOWED_HOSTS = ['84.201.142.34', '127.0.0.1', 'localhost', 'kittygramranlycats.zapto.org']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
