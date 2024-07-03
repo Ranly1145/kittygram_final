@@ -10,9 +10,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
-DEBUG = False
+if os.getenv('DEBUG', 'True').lower() == 'false':
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = ['84.201.142.34', '127.0.0.1', 'localhost', 'kittygramranlycats.zapto.org']
+ALLOWED_HOSTS = os.getenv('ALLOED_HOSTS', '127.0.0.1').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -57,9 +60,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kittygram_backend.wsgi.application'
 
-
-DATABASES = {
-    'default': {
+if os.getenv('DATABASES', 'SQLite').lower() in ('postgres', 'postgresql'):
+    database_default = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('POSTGRES_DB', 'django'),
         'USER': os.getenv('POSTGRES_USER', 'django_user'),
@@ -67,6 +69,14 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST', ''),
         'PORT': os.getenv('DB_PORT', 5432)
     }
+else:
+    database_default = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+
+DATABASES = {
+    'default': database_default
 }
 
 
